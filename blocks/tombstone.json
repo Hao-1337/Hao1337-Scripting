@@ -1,0 +1,81 @@
+{
+    "format_version": "1.16.100",
+	"minecraft:block": {
+		"description": {
+			"identifier": "iaf:tombstone",
+            "properties": {
+                "iaf:face": [ 1, 2, 3, 4, 5 ]
+            }
+		},
+        "components": {
+            //"minecraft:geometry": "geometry.",
+            //"minecraft:immovable": true,
+            //"minecraft:pick_collision": false,
+            "minecraft:material_instances": {
+                "*": {
+                      "texture": "netherreactor",
+                      "render_method": "blend"
+                }
+            },
+            "minecraft:destructible_by_mining": {
+              "seconds_to_destroy": 5
+            },
+            "minecraft:loot": "loot_tables/empty.json",
+            "minecraft:destructible_by_explosion": false,
+            "minecraft:on_player_placing": {
+                "event": "rotate"
+            },
+            "minecraft:block_light_absorption": 0.5,
+            "minecraft:rotation": [ 0, 180, 0 ],
+            "minecraft:on_player_destroyed":{
+              "event" : "break",
+              "target": "self"
+            }
+        },
+        "events": {
+            "rotate": {
+                "sequence": [
+                    {
+                        "set_block_property": {
+                            "iaf:face": "(query.cardinal_facing_2d)"
+                        }
+                    }
+                ]
+            },
+            "break": {
+                "sequence": [
+                    {
+                        "run_command": {
+                            "target": "block",
+                            "command": "kill @e[type=iaf:tombstone_entity,r=1,c=1]"
+                        }
+                    }
+                ]
+            }
+        },
+        "permutations": [
+            {
+                "condition": "query.block_property('iaf:face') == 3",
+                "components": { 
+                    "minecraft:rotation": [ 0, 0, 0 ]
+                }
+            },
+            {
+                "condition": "query.block_property('iaf:face') == 2",
+                "components": {}
+            },
+            {
+                "condition": "query.block_property('iaf:face') == 5",
+                "components": {
+                    "minecraft:rotation": [ 0, 90, 0 ]
+                }
+            },
+            {
+                "condition": "query.block_property('iaf:face') == 4",
+                "components": {
+                    "minecraft:rotation": [ 0, 270, 0 ]
+                }
+            }
+        ]
+	}
+}

@@ -1,0 +1,32 @@
+{
+  "format_version": "1.17.41",
+  "minecraft:item": {
+    "components": {
+      "minecraft:cooldown": {
+        "category": "use",
+        "duration": 0.1
+      },
+      "minecraft:display_name": {
+        "value": "Wrench\n§6Click in block you need to rotate"
+      },
+      "minecraft:foil": true,
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": {
+        "texture": "wrench"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:on_use": {
+        "on_use": {
+          "event": "nothing"
+        }
+      }
+    },
+    "description": {
+      "category": "equipment",
+      "identifier": "choigame:wrench"
+    },
+    "events": {
+      "nothing": {}
+    }
+  }
+}

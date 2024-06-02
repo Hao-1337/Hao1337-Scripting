@@ -1,0 +1,70 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "iaf:tombstone_entity",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "before_die": {
+        "minecraft:inventory": {
+          "inventory_size": 0,
+          "container_type": "inventory",
+          "can_be_siphoned_from": false,
+          "private": true
+        }
+      },
+      "die": {
+        "minecraft:instant_despawn":{
+          "remove_child_entities": true
+        }
+      }
+    },
+    "components": {
+      "minecraft:inventory": {
+        "inventory_size": 54,
+        "container_type": "inventory",
+        "can_be_siphoned_from": true
+      },
+      "minecraft:breathable": {
+        "total_supply": 20,
+        "suffocate_time": 0,
+        "breathes_water": true,
+        "breathes_solids": true
+      },
+      "minecraft:collision_box": {
+        "width": 0.9,
+        "height": 0.9
+      },
+      "minecraft:health": {
+        "value": 1
+      },
+      "minecraft:nameable": {
+        "allow_name_tag_renaming": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:damage_sensor":[{"cause":"all","deals_damage":false}]
+    },
+    "events": {
+      "kill": {
+        "add": {
+          "component_groups": [
+            "die"
+          ]
+        }
+      },
+      "clear": {
+        "add": {
+          "component_groups": [
+            "before_die"
+          ]
+        }
+      }
+    }
+  }
+}

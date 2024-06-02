@@ -1,0 +1,20 @@
+{
+  "format_version": "1.17.41",
+  "minecraft:item": {
+    "components": {
+      "minecraft:display_name": {
+        "value": "§c§lJust using for scripts checker"
+      },
+      "minecraft:hand_equipped": true,
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "texture": "air"
+      },
+      "minecraft:foil": false
+    },
+    "description": {
+      "category": "equipment",
+      "identifier": "choigame:nothing"
+    }
+  }
+}

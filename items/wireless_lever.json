@@ -1,0 +1,32 @@
+{
+  "format_version": "1.17.41",
+  "minecraft:item": {
+    "components": {
+      "minecraft:cooldown": {
+        "category": "shop",
+        "duration": 8
+      },
+      "minecraft:display_name": {
+        "value": "Wireless Lever\n§6Shift + Click for save.\n§6Click to setting reset time\n§6Use for active."
+      },
+      "minecraft:foil": true,
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": {
+        "texture": "lever"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:on_use": {
+        "on_use": {
+          "event": "nothing"
+        }
+      }
+    },
+    "description": {
+      "category": "equipment",
+      "identifier": "choigame:wireless_lever"
+    },
+    "events": {
+      "nothing": {}
+    }
+  }
+}

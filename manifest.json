@@ -1,0 +1,65 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "§l§aChoigame§6 Scriping Pack",
+    "description": "§aPack make by §6Ch9igame123",
+    "uuid": "fd0ea5b3-b42b-4c24-b141-7dce9fce2acc",
+    "version": [
+      8,
+      6,
+      18
+    ],
+    "min_engine_version": [
+      1,
+      19,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "a8ed2c09-a300-4c15-861f-780a98c0c652",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "9bf3d03e-f365-4002-86ff-91472b667115",
+      "entry": "scripts/main.js",
+      "version": [
+        1,
+        20,
+        10
+      ]
+    }
+  ],
+  "capabilities": [
+    "script_eval"
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.11.0-beta"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.2.0-beta"
+    },
+    {
+      "module_name": "@minecraft/server-gametest",
+      "version": "1.0.0-beta"
+    },
+    {
+      "uuid": "ef647d5c-de0b-4f26-870d-f82c8d1bd539",
+      "version": [
+        3,
+        1,
+        3
+      ]
+    }
+  ]
+}

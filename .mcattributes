@@ -1,0 +1,2 @@
+diagnostic.disable.molang.query.deprecated=true
+diagnostic.disable.minecraft.format.path.length=true

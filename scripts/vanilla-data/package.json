@@ -1,0 +1,50 @@
+{
+  "_from": "@minecraft/vanilla-data@1.20.10",
+  "_id": "@minecraft/vanilla-data@1.20.10",
+  "_inBundle": false,
+  "_integrity": "sha512-3FbbRSJspjJyk5eFPSj70wp776tIaqP3Apo2q2yCMkzBhH0iwPizl5aDer6ZwWBPiipGev9039Or2R9wyAplbg==",
+  "_location": "/@minecraft/vanilla-data",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@minecraft/vanilla-data@1.20.10",
+    "name": "@minecraft/vanilla-data",
+    "escapedName": "@minecraft%2fvanilla-data",
+    "scope": "@minecraft",
+    "rawSpec": "1.20.10",
+    "saveSpec": null,
+    "fetchSpec": "1.20.10"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@minecraft/vanilla-data/-/vanilla-data-1.20.10.tgz",
+  "_shasum": "4be5fc97cd86cd5035b34db22f8a1795e189ba00",
+  "_spec": "@minecraft/vanilla-data@1.20.10",
+  "_where": "/storage/emulated/0/Nodejs/nbt html",
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Jake Shirley",
+      "email": "jake@xbox.com"
+    },
+    {
+      "name": "Mike Ammerlaan",
+      "email": "mikeam@microsoft.com"
+    },
+    {
+      "name": "Raphael Landaverde",
+      "email": "rlandav@microsoft.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "Contains types for Minecraft Vanilla Content",
+  "exports": "lib/index.js",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "name": "@minecraft/vanilla-data",
+  "types": "lib/index.d.ts",
+  "version": "1.20.10"
+}

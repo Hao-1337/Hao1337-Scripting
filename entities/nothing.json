@@ -1,0 +1,91 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "choigame:nothing",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "die": {
+        "minecraft:instant_despawn":{
+          "remove_child_entities": true
+        }
+      },
+      "test": {
+      }
+    },
+    "components": {
+      "minecraft:nameable": {
+        "allowNameTagRenaming": true,
+        "alwaysShow": false
+      },
+      "minecraft:inventory": {
+        "container_type": "inventory",
+        "inventory_size": 1
+      },
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:knockback_resistance": {
+        "value": 10
+      },
+      "minecraft:damage_sensor": [
+        {
+          "cause": "all",
+          "deals_damage": false
+        }
+      ],
+      "minecraft:collision_box": {
+        "width": 0.01,
+        "height": 0.01
+      },
+      "minecraft:scale": {
+        "value": 0.0
+      },
+      "minecraft:pushable": {
+        "is_pushable": false
+      },
+      "minecraft:physics": {
+        "has_gravity": false
+      },
+      
+        "minecraft:equip_item": {},
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/empty.json",
+          "slot_drop_chance": [
+            {
+              "slot": "slot.weapon.mainhand",
+              "drop_chance": 0.0
+            }
+          ]
+        },
+        "minecraft:shareables": {
+        "all_items": true,
+        "all_items_max_amount": 1,
+        "items": [
+          { "item": "minecraft:apple", "priority": 0, "max_amount": 1 },
+          { "item": "minecraft:appleEnchanted", "priority": 0, "max_amount": 1 }
+          ]
+        }
+    },
+    "events": {
+      "die": {
+        "add": {
+          "component_groups": [
+            "die"
+          ]
+        }
+      },
+      "test": {
+        "add": {
+          "component_groups": [
+            "test"
+          ]
+        }
+      }
+    }
+  }
+}

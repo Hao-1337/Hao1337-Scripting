@@ -1,0 +1,27 @@
+{
+  "format_version": "1.19.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "choigame:air",
+      "category": "nature"
+    },
+    "minecraft:block_light_absorption": 0.0,
+    "minecraft:block_light_emission": 0.0,
+    "minecraft:destroy_time": 50.0,
+    "minecraft:friction": 0.0,
+    "minecraft:map_color": "#FFFFFF",
+    "minecraft:explosion_resistance": 30.0,
+    "components": {
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "choigame:air",
+          "render_method": "blend"
+        }
+      },
+      "minecraft:flammable":{
+         "burn_odds": 0,
+         "flame_odds": 0
+      }
+    }
+  }
+}

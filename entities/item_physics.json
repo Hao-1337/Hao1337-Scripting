@@ -1,0 +1,268 @@
+{
+  "format_version": "1.18.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "hao1337:item_physics",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:knockback_resistance": {},
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:type_family": {
+        "family": [
+          "item",
+          "items"
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.7,
+        "height": 0.2
+      },
+      "minecraft:scale": {
+        "value": 0.9
+      },
+      "minecraft:is_stackable": {},
+      "minecraft:movement.basic": {},
+      "minecraft:movement": {
+        "value": 0
+      },
+      "minecraft:buoyant": {
+        "base_buoyancy": 1.0,
+        "apply_gravity": true,
+        "simulate_waves": false,
+        "liquid_blocks": [
+          "minecraft:lava",
+          "minecraft:flowing_lava",
+          "minecraft:water",
+          "minecraft:flowing_water"
+        ]
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_lava": true,
+        "avoid_water": true,
+        "can_sink": false,
+        "can_walk_in_lava": true
+      },
+      "minecraft:behavior.rise_to_liquid_level": {
+        "priority": 0,
+        "liquid_y_offset": 0,
+        "rise_delta": 0.1,
+        "sink_delta": 0.05
+      },
+      "minecraft:inventory": {
+        "container_type": "inventory",
+        "inventory_size": 1,
+        "private": true,
+        "can_be_siphoned_from": false
+      },
+      "minecraft:equip_item": {},
+      "minecraft:nameable": {
+        "allowNameTagRenaming": false,
+        "alwaysShow": false
+      },
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "interact_text": "Pick up Item",
+            "swing": true,
+            "on_interact": {
+              "filters": {
+                "test": "is_family",
+                "subject": "other",
+                "value": "player"
+              }
+            }
+          }
+        ]
+      },
+      "minecraft:entity_sensor": {
+        "sensor_range": 1.5,
+        "event_filters": {
+          "any_of": [
+            {
+              "test": "is_sneaking",
+              "subject": "other"
+            },
+            {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "value": "fox",
+                  "operator": "==",
+                  "subject": "other"
+                },
+                {
+                  "test": "is_family",
+                  "value": "allay",
+                  "operator": "==",
+                  "subject": "other"
+                }
+              ]
+            }
+          ]
+        },
+        "event": "loot"
+      },
+      "minecraft:timer": {
+        "looping": true,
+        "time": 0.4,
+        "time_down_event": {
+          "event": "timer"
+        }
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "fall",
+            "deals_damage": false
+          },
+          {
+            "cause": "falling_block",
+            "deals_damage": false
+          },
+          {
+            "cause": "projectile",
+            "deals_damage": false
+          },
+          {
+            "cause": "entity_attack",
+            "deals_damage": false
+          },
+          {
+            "cause": "fire_tick",
+            "deals_damage": false
+          },
+          {
+            "cause": "freezing",
+            "deals_damage": false
+          },
+          {
+            "cause": "magic",
+            "deals_damage": false
+          },
+          {
+            "cause": "suffocation",
+            "deals_damage": false
+          },
+          {
+            "cause": "fire",
+            "deals_damage": true,
+            "on_damage_sound_event": "random.burp",
+            "on_damage": {
+              "event": "kill",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "lava",
+            "deals_damage": true,
+            "on_damage_sound_event": "random.burp",
+            "on_damage": {
+              "event": "kill",
+              "target": "self"
+            }
+          }
+        ]
+      }
+    },
+    "component_groups": {
+      "die": {
+        "minecraft:instant_despawn": {
+          "remove_child_entities": true
+        }
+      },
+      "is_block": {
+        "minecraft:is_tamed": {}
+      },
+      "cant_burn": {
+        "minecraft:damage_sensor": {
+          "triggers": [
+            {
+              "cause": "fire",
+              "deals_damage": false
+            },
+            {
+              "cause": "lava",
+              "deals_damage": false
+            },
+            {
+              "cause": "fall",
+              "deals_damage": false
+            },
+            {
+              "cause": "falling_block",
+              "deals_damage": false
+            },
+            {
+              "cause": "projectile",
+              "deals_damage": false
+            },
+            {
+              "cause": "entity_attack",
+              "deals_damage": false
+            },
+            {
+              "cause": "freezing",
+              "deals_damage": false
+            },
+            {
+              "cause": "magic",
+              "deals_damage": false
+            },
+            {
+              "cause": "fire_tick",
+              "deals_damage": false
+            }
+          ]
+        }
+      }
+    },
+    "events": {
+      "cant_burn": {
+        "add": {
+          "component_groups": [
+            "cant_burn"
+          ]
+        }
+      },
+      "kill": {
+        "add": {
+          "component_groups": [
+            "die"
+          ]
+        }
+      },
+      "timer": {
+        "run_command": {
+          "command": [
+            "execute at @s if entity @e[family\u003dminecart,r\u003d1] run scriptevent hao1337:hopper_minecart 0",
+            "execute at @s positioned ~~-1~ if entity @e[family\u003dminecart,r\u003d1] run scriptevent hao1337:hopper_minecart -1.3",
+            "execute at @s if block ~~-1~ minecraft:hopper run scriptevent hao1337:hopper -1"
+          ],
+          "target": "self"
+        }
+      },
+      "loot": {
+        "run_command": {
+          "target": "self",
+          "command": [
+            "execute as @e[r=3,family=player,c=1] run scriptevent hao1337:loot"
+          ]
+        }
+      },
+      "is_block": {
+        "add": {
+          "component_groups": [
+            "is_block"
+          ]
+        }
+      }
+    }
+  }
+}
