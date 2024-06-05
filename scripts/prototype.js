@@ -71,7 +71,7 @@ Player.prototype.tagByPrefixs = function(prefix) {
 function prototypeParser(item) {
   try {
     return item?.constructor?.name ?? (typeof item === "object" ? Object.getPrototypeOf(item)?.constructor?.name : void 0);
-  } catch {
+  } catch (e) {
     return 'error';
   }
 }
@@ -89,7 +89,7 @@ export function JsonString(d) {
             cache;
         for (let k in d) switch (prototypeParser(d[k])) {
             case 'error':
-                out[keyC + k] = `§go [Unable to load]`
+                out[keyC + k] = `§go [Unable to load. Error by debug itself]`
                 break;
             case undefined:
             case null:
@@ -135,7 +135,7 @@ export function JsonString(d) {
                 out[keyC + k] = "§d Iterator<Unknow>"
                 break;
             default:
-               out[keyC + (b ? "" : `§0${d[k].constructor.name}0§ `) + k] = JsonString(d[k]);
+               out[keyC + (b ? "" : `§0${d[k]?.constructor.name}0§ `) + k] = JsonString(d[k]);
         }
         return out;
     } catch (e) {
@@ -154,179 +154,6 @@ JSON.colorStringify = function(data, space = 4) {
   return JSON.stringify(JsonString(data), void 0, space).replace(/\"§(\w+?|\w+?(∆|\$))\s(§0[\s\S]+?0§(\s*)|)([\s\S]*?)\"(:\s|,|$)/gm, (_, color, type, className, isKey, name, kind) => (_ = (isKey = type === "∆") || type === "$", `§${color.replace(/[∆$]/g, "").split("").join("§")}${type ? '"' : ""}${name}${type ? '"' : ""}§r${isKey ? `: ${className?.length ? `§8[§e${className.slice(2, -3)}§8]§l >§r ` : ""}` : kind?.length ? "," : ""}`));
 };
 
-
-/**
- * need to make a debug
- * @param {Player} player player using for parse
- * @return {Obiect}
- */
-String.prototype.splitArgument = function(player) {
-  let registers = [],
-      returnARG = [],
-      hasQuote = {},
-      quotes = false,
-      parseError,
-      loc_error,
-      rIndex = 0;
-  if (!(player instanceof Player)) return {
-    error: true,
-    data: `InternalError: Input param must be a Player. Please report this error to admin to fix it soon.`
-  };
-  /**
-   * Get/check Array<unknow> for object input string
-   * @private
-   */
-  const parseArray = (string, check = true) => {
-    try {
-      if (check) return Array.isArray(JSON.parse(string.replace(/['`]/g, "\"")));
-      else return JSON.parse(string.replace(/['`]/g, "\""));
-    } catch (e) {
-      return false;
-    }
-  },
-  /**
-   * Get/check Object<unknow> for object input string
-   * @private
-   */
-  parseObject = (string, check = true) => {
-    try {
-      if (check) return (JSON.parse(string.replace(/['`]/g, "\""))) instanceof Object;
-      else return JSON.parse(string.replace(/['`]/g, "\""));
-    } catch (e) {
-      return false;
-    }
-  },
-  /**
-   * Get Array<Player|Entity> for selector input string
-   * @async
-   * @private
-   */
-  testfor = async (selector, bool) => {
-    const id = "t1id:" + String((Date.now() * Math.random() % 1).toFixed(7)).slice(2);
-    if (!bool) selector = `@a[name="${selector}"]`;
-    await player.runCommandAsync(`tag ${selector} add "${id}"`);
-    return Array.from(player.dimension.getEntities({tags:[id]}), e => (e?.removeTag(id), e));
-  },
-  /**
-   * Get <Vector3> for position input string
-   * @async
-   * @private
-   */
-  testforloc = async (string) => {
-    const {location} = player;
-    if (string.includes('~') && string.includes('^')) {
-      loc_error = "Cannot expand coordinates with different types of arguments";
-      return;
-    }
-    const id = "tid:" + String((Date.now() * Math.random() % 1).toFixed(7)).slice(2),
-    entity = player.dimension.spawnEntity("choigame:floating_text", player.location);
-    entity.addTag(id)
-    try {
-      await player.runCommandAsync(`execute at @s run tp @e[type=choigame:floating_text,tag=${id}] ${string}`);
-    } catch (e) {
-      loc_error = `InternalError: ${e}.\n Please report this error to admin to fix it soon.`;
-      return;
-    }
-    const final_loc = entity.location;
-    entity.kill();
-    return final_loc;
-  }
-  /**
-   * Check arg type and get js data that can be handle with.
-   * @private
-   */
-  function argTypeCheck(string, index) {
-    let num_parse = `${string.trim()}`.match(/(\-\d+\.\d+)|(\d+\.\d+)|(\-\d+)|(\d+)/gm),
-        pos_parse = `${string.trim()}`.match(/([\^\~](?:[+-]?(?:\d+(?:\.\d+)?)?)?){3}/gm);
-    const bool = string.includes("@"),
-          type = bool ? [] : ["string"];
-    return hasQuote[index] ? 
-    {
-      type: ["string"],
-      data: string
-    } : (num_parse && `${num_parse[0]}`.length === string.length) ? {
-      type: ["number", "location"],
-      data: +string
-    } : (pos_parse && `${pos_parse[0]}`.length === string.length) ? {
-      type: ["location"],
-      data: testforloc(string)
-    } : (string.match(/(@[asre]\[[\w\W]*?\])|(@[asre])/g) || Array.from(world.getPlayers(), v => v.name.toLowerCase()).some(pln => pln === string.toLowerCase())) ? {
-      type: ["selector", ...type],
-      data: testfor(string, bool)
-    } : ((string === 'true' || string === "false")) ? {
-      type: ["boolean"],
-      data: (string === "true")
-    } : parseArray(string) ? {
-      type: ["array"],
-      data: parseArray(string, false)
-    } : parseObject(string) ? {
-      type: ["object"],
-      data: parseObject(string, false)
-    } : {
-      type: ["string"],
-      data: string
-    };
-  }
-  this.split("").reduce((pv, v, i, arr) => {
-    let early = false;
-    if (pv === "\\") return (returnARG[rIndex].push(arr[i]), v);
-    (!returnARG[rIndex]) && (returnARG[rIndex] = new Array());
-    (registers.length === 0 && (v === "]" || v === "}")) && (parseError = `Invalid object - Redundant '${v}'`);
-    if (!quotes) {
-      if (v === " " && arr[i + 1] === " ") return v;
-      if (registers.length === 0 && v === " ") return rIndex++, v;
-      switch (v) {
-        case '"':
-          quotes = true;
-          early = true;
-          registers.push('"');
-          break;
-        case "{":
-          registers.push('}');
-          break;
-        case "[":
-          registers.push(']');
-          break;
-        case "}":
-        case "]":
-          registers.pop();
-          break;
-        case " ":
-          return v;
-        case "\\":
-          return (returnARG[rIndex].push(arr[i]), v);
-      }
-    }
-    if (quotes && v === "\"" && !early) {
-      quotes = false;
-      early = true;
-      hasQuote[rIndex] = true;
-      registers.pop();
-    }
-    if (!early || registers.find(v => v !== '"')) returnARG[rIndex].push(arr[i]), hasQuote[rIndex] = false;
-    return v;
-  }, this[0]);
-  returnARG = returnARG.map(v => v.join("").trim());
-  if (registers.length >= 1) return {
-    error: true,
-    data: `Invalid object - Missing '${registers[registers.length-1]}`
-  }
-  if (parseError) return {
-    error: true,
-    data: parseError
-  }
-  const parse_data = returnARG.map(argTypeCheck);
-  if (loc_error) return {
-    error: true,
-    data: `Invalid location format - ${loc_error}`
-  }
-  return {
-    error: false,
-    data: returnARG,
-    data_type: parse_data.map(v => v.type),
-    parse_data: parse_data.map(v => v.data)
-  }
-}
 
 /**
  * Compare two permutation

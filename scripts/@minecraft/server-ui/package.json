@@ -1,0 +1,46 @@
+{
+  "_from": "@minecraft/server-ui@1.1.0-beta.1.20.0-stable",
+  "_id": "@minecraft/server-ui@1.1.0-beta.1.20.0-stable",
+  "_inBundle": false,
+  "_integrity": "sha512-rzPFExkj2MtoVC8OKFRleWfCfzUecZgw3+xMo3IEpG6JEW7Fp8aQHGJhsQNsL+pwLBSchVj4zpt+HVHzCIs2gA==",
+  "_location": "/@minecraft/server-ui",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@minecraft/server-ui@1.1.0-beta.1.20.0-stable",
+    "name": "@minecraft/server-ui",
+    "escapedName": "@minecraft%2fserver-ui",
+    "scope": "@minecraft",
+    "rawSpec": "1.1.0-beta.1.20.0-stable",
+    "saveSpec": null,
+    "fetchSpec": "1.1.0-beta.1.20.0-stable"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@minecraft/server-ui/-/server-ui-1.1.0-beta.1.20.0-stable.tgz",
+  "_shasum": "e57962c06dff1faa9049d8c89d09e285fa285381",
+  "_spec": "@minecraft/server-ui@1.1.0-beta.1.20.0-stable",
+  "_where": "/storage/emulated/0/Nodejs/nbt html",
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Jake Shirley",
+      "email": "jake@xbox.com"
+    },
+    {
+      "name": "Mike Ammerlaan",
+      "email": "mikeam@microsoft.com"
+    }
+  ],
+  "dependencies": {
+    "@minecraft/server": "1.3.0-beta.1.20.0-stable"
+  },
+  "deprecated": false,
+  "description": "The `@minecraft/server-ui` module contains types for expressing simple dialog-based user experiences.",
+  "license": "MIT",
+  "name": "@minecraft/server-ui",
+  "version": "1.1.0-beta.1.20.0-stable"
+}

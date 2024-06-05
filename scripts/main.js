@@ -95,6 +95,8 @@ world.debug= (t,e={},r=false) => {
     return r ? data : tell(data);
 }
 
+// world.afterEvents.playerInteractWithBlock.subscribe(_ => world.sendMessage("sex"));
+
 export function errorHandle(error, task = config["output-error-handle"]) {
   switch (task) {
     case "warn":
@@ -176,7 +178,10 @@ const soundIds = [
 system.afterEvents.scriptEventReceive.subscribe(async function({id, message, sourceBlock: block, sourceEntity}) {
   if (id === "hao:playsound") {
     shuffleArray(soundIds);
-    world.getPlayers().forEach(player => player.playSound(soundIds[0]));
+    world.getPlayers().forEach(player => {
+      player.stopMusic();
+      player.playSound(soundIds[0]);
+    });
   }
   if (id === "choigame:eval") {
     let $ = block || sourceEntity;
@@ -260,7 +265,7 @@ function timeMarker(str) {
    time = _;
    console.warn(`§a[Boot Loader]§r ${str} §f(§e${c}ms§f)`);
 }
-
+import { ChatHandle as lmao } from "./New/command.js";
 async function core(modules = {}, addons = {}) {try{
   console.warn("Modules starting up....");
 //=====================================================÷===============
@@ -277,7 +282,10 @@ async function core(modules = {}, addons = {}) {try{
     world.beforeEvents.chatSend.subscribe(_ => {
       var {message, sender} = _;
       _.cancel = true;
-      system.run(() => ChatHandle({message, sender}));
+      system.run(() => {
+        lmao(_);
+        // ChatHandle({message, sender});
+    });
     });
     /* You command must be on here */
     try {

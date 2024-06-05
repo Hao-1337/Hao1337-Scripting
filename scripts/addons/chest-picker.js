@@ -25,7 +25,6 @@
 import {
     world,
     Player,
-    Vector,
     ItemStack,
     system,
     BlockPermutation,
@@ -82,7 +81,7 @@ async function chestPicker({source: player, itemStack: item = void 0, block = vo
     let time = Date.now();
     if (!(player instanceof Player) || !item || !block || item.typeId !== "choigame:chest_transporter" || time - history[player.id] < 4e2) return;
 
-    const location = new Vector(block.location.x, block.location.y, block.location.z),
+    const location = {x: block.location.x, y: lock.location.y, z: block.location.z},
           dim = player.dimension,
           _pc = player.getComponent("inventory").container,
           isChest = block => ["minecraft:chest", "minecraft:trapped_chest"].includes(block.typeId),

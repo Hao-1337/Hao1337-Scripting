@@ -25,7 +25,7 @@
 import { errorHandle, G } from "../main.js";
 import Database from "../modules/database.js";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
-import { Vector, world } from "@minecraft/server";
+import { world } from "@minecraft/server";
 import { Method as mt } from "../modules/method.js";
 
 const leaderboardUI = new ActionFormData()
@@ -168,10 +168,10 @@ export async function addLB(player, $) {
     if (Y === "~") Y = Math.trunc(player.location.y);
     if (Z === "~") Z = Math.trunc(player.location.z);
  
-    let check = [...player.dimension.getEntities({location: new Vector(X, Y, Z), maxDistance: 5, type: "choigame:floating_text", tags: ["is_leaderboard"]})];
+    let check = [...player.dimension.getEntities({location: {x: X, y: Y, z: Z}, maxDistance: 5, type: "choigame:floating_text", tags: ["is_leaderboard"]})];
 
     if (!check.length) {
-      let entity = player.dimension.spawnEntity("choigame:floating_text", new Vector(X, Y, Z));
+      let entity = player.dimension.spawnEntity("choigame:floating_text", {x: X, y: Y, z: Z});
   
       [`is_leaderboard`, `nameLB:${n1}`, `show_all_time:${bool1}`, `objective:${ob1}`].forEach(v => entity.addTag(v));
       player.playSound(G.sound.successful);

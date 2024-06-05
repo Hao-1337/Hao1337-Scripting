@@ -28,7 +28,6 @@ import {
   Player,
   world,
   ItemTypes,
-  Vector,
   system,
   errorHandle,
   VECTOR3 as vec3
@@ -456,7 +455,7 @@ export default class WorldEdit {
     try {
       this.in_progress = true;
       //split it to chunk
-      let cuboids = this.CuboidSplit(new Vector(pos1.x, pos1.y, pos1.z), new Vector(pos1.x + data.dimension.x, pos1.y + data.dimension.y, pos1.z + data.dimension.z), config.structure_size);
+      let cuboids = this.CuboidSplit({x: pos1.x, y: pos1.y, z: pos1.z}, {x: pos1.x + data.dimension.x, y: pos1.y + data.dimension.y, z: pos1.z + data.dimension.z}, config.structure_size);
       for (let [index, cube] of Object.entries(cuboids)) {
         let output = await this.player.runCommandAsync(`structure load "${data.data[index].name}" ${cube.pos1.x} ${cube.pos1.y} ${cube.pos1.z} 0_degrees none block_by_block ${(data.data.length / 2).toFixed(2)}`);
         if (config.log) world.sendMessage(`[${cube.pos1.x} ${cube.pos1.y} ${cube.pos1.z}]-${output.statusMessage}`);

@@ -23,7 +23,7 @@
  * Do not steal without my permission
  */
 import { errorHandle, G } from "../main.js";
-import { Vector, world, Block, BlockPermutation, Enchantment, EnchantmentTypes } from "@minecraft/server";
+import { world, Block, BlockPermutation, Enchantment, EnchantmentTypes } from "@minecraft/server";
 import { VECTOR3 as vector } from "../modules/method.js";
 import Timer from "../modules/timer.js";
 import { MinecraftEnchantmentTypes } from "../vanilla-data/lib/index.js";

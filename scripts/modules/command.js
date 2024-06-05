@@ -168,7 +168,7 @@ function argTypeCheck(string) {
   return (num_parse && num_parse[0] && `${num_parse[0]}`.length === string.length) ? ["number", "location"] : (loc_parse && loc_parse[0] && `${loc_parse[0]}`.length === string.length) ? "location" : (string === 'true' || string === "false") ? "boolean" : (string.match(/(@[asre]\[[\w\W]*?\])|(@[asre])/g) || Array.from(world.getPlayers(), v => v.name).some(pln => pln === string)) ? ["selector", "string"] : (Array.isArray(string)) ? ["array"] : (string instanceof Object) ? ["object"] : ["string"];
 }
 
-export async function ChatHandle({message: chat, sender: player}) => {
+export async function ChatHandle({message: chat, sender: player}) {
   //world.debug(arguments);
   try{
     if (chat.startsWith(config.evalPrefix)) {

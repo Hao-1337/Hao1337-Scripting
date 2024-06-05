@@ -22,7 +22,7 @@
  *
  * Do not steal without my permission
  */
-import { Vector, system, ItemStack, world } from "@minecraft/server";
+import { system, ItemStack, world } from "@minecraft/server";
 import { errorHandle, G } from "../main.js";
 
 const $overworld = world.getDimension("overworld");
@@ -486,7 +486,7 @@ export class AsyncMethod {
    */
   static async waitPlayerRotation(player, wait_time = 20e4) {
     const _ = player.getViewDirection(),
-      vv = new Vector(_.x, _.y, _.z);
+      vv = {x: _.x, y: _.y, z: _.z};
     return await new Promise((reslove, reject) => {
       let wait_time = 500,
           wait = system.runInterval(() => {

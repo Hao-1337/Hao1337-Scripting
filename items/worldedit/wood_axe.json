@@ -6,7 +6,7 @@
         "value": "§5WorldEdit Wand§r"
       },
       "minecraft:foil": false,
-      "minecraft:hand_equipped": true,
+      // "minecraft:hand_equipped": true,
       "minecraft:icon": {
         "texture": "axe"
       },
